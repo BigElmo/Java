@@ -2,6 +2,7 @@ public class HomeWorkApp {
 
 
     public static void main(String[] args) {
+        //Commit for Pull request :P
         printThreeWords();
         checkSumSign();
         printColor();
