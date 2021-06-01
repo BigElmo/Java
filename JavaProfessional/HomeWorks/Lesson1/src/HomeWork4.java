@@ -16,9 +16,14 @@ public class HomeWork4 {
     }
 
     public static void printMap(char[][] map) {
-        for(int i = 0; i < map.length; i++) {
+        for(int i = 0; i <= map.length; i++) {
+            System.out.print(i);
             for(int j = 0; j < map.length; j++) {
-                System.out.print(map[i][j]);
+                if(i == 0) {
+                    System.out.print("  " + (j + 1));
+                } else {
+                    System.out.print("  " + map[i-1][j]);
+                }
             }
             System.out.println();
         }
