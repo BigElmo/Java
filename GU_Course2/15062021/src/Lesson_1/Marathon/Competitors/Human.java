@@ -1,4 +1,4 @@
-package Lesson_1.Marathon;
+package Lesson_1.Marathon.Competitors;
 
 
 public class Human implements Competitor {

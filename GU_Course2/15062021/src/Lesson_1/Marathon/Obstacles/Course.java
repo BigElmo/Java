@@ -1,4 +1,7 @@
-package Lesson_1.Marathon;
+package Lesson_1.Marathon.Obstacles;
+
+import Lesson_1.Marathon.Competitors.Competitor;
+import Lesson_1.Marathon.Competitors.Team;
 
 public class Course {
     private final Obstacle[] obstacles = new Obstacle[3];

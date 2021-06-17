@@ -1,4 +1,6 @@
-package Lesson_1.Marathon;
+package Lesson_1.Marathon.Competitors.Animals;
+
+import Lesson_1.Marathon.Competitors.Competitor;
 
 public class Animal implements Competitor {
     String type;
