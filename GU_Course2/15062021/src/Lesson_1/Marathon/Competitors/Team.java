@@ -2,14 +2,11 @@ package Lesson_1.Marathon.Competitors;
 
 public class Team {
     private final String name;
-    public Competitor[] competitors = new Competitor[4];
+    public Competitor[] competitors;
 
-    public Team(String name, Competitor comp1, Competitor comp2, Competitor comp3, Competitor comp4) {
+    public Team(String name, Competitor...competitors) {
         this.name = name;
-        competitors[0] = comp1;
-        competitors[1] = comp2;
-        competitors[2] = comp3;
-        competitors[3] = comp4;
+        this.competitors = competitors;
     }
 
     public void showResults() {
