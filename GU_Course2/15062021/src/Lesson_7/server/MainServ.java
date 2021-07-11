@@ -48,6 +48,14 @@ public class MainServ {
         return false;
     }
 
+    public void privateMsg(String receiver, String msg) {
+        for (ClientHandler o : clients) {
+            if (o.getNick().equals(receiver)) {
+                o.sendMsg(msg);
+            }
+        }
+    }
+
     public void subscribe(ClientHandler client) {
         clients.add(client);
     }

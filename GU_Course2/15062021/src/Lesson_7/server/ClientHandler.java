@@ -50,7 +50,17 @@ public class ClientHandler {
                                 out.writeUTF("/serverclosed");
                                 break;
                             }
-                            serv.broadcastMsg(nick + " : " + str);
+                            if (str.startsWith("/w")) {
+                                String[] keys = str.split(" ");
+                                if (serv.isNickBusy(keys[1])) {
+                                    String newMsg = str.substring(keys[0].length() + keys[1].length() + 2);
+                                    serv.privateMsg(keys[1], nick + " : " + newMsg);
+                                } else {
+                                    out.writeUTF("Получатель не найден");
+                                }
+                            } else {
+                                serv.broadcastMsg(nick + " : " + str);
+                            }
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
