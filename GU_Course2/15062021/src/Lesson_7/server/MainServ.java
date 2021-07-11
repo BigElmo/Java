@@ -18,7 +18,6 @@ public class MainServ {
             server = new ServerSocket(8189);
             System.out.println("Сервер запущен!");
             while (true) {
-                //String login = AuthService.getNickByLoginAndPass("login1", "pass1");
                 socket = server.accept();
                 System.out.println("Клиент подключился!");
                 new ClientHandler(this, socket);
@@ -38,6 +37,15 @@ public class MainServ {
             }
             AuthService.disconnect();
         }
+    }
+
+    public boolean isNickBusy(String nick) {
+        for (ClientHandler o : clients) {
+            if (o.getNick().equals(nick)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void subscribe(ClientHandler client) {
