@@ -1,4 +1,4 @@
-package Lesson_6.server;
+package Lesson_7.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
