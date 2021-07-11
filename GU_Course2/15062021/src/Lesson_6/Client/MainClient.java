@@ -15,6 +15,7 @@ public class MainClient {
         try {
             socket = new Socket(SERVER_ADDR, SERVER_PORT);
             System.out.println("Connected");
+            System.out.println("Type /exit to close connection");
             DataInputStream in = new DataInputStream(socket.getInputStream());
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 
