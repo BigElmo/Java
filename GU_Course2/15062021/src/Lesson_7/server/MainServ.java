@@ -51,7 +51,9 @@ public class MainServ {
     public void privateMsg(String from, String to, String msg) {
         for (ClientHandler o : clients) {
             if (o.getNick().equals(from) || o.getNick().equals(to)) {
-                o.sendMsg(msg);
+                if (!AuthService.isInBlacklist(o.getNick(), from)) {
+                    o.sendMsg(msg);
+                }
             }
         }
     }
@@ -64,8 +66,9 @@ public class MainServ {
         clients.remove(client);
     }
 
-    public void broadcastMsg(String msg) {
+    public void broadcastMsg(String from, String msg) {
         for (ClientHandler o : clients) {
+            if (!AuthService.isInBlacklist(o.getNick(), from))
             o.sendMsg(msg);
         }
     }

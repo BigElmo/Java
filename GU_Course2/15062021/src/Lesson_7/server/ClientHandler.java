@@ -52,7 +52,11 @@ public class ClientHandler {
                             }
                             if (str.startsWith("/blacklist")) {
                                 String[] tokens = str.split(" ");
-
+                                if (serv.isNickBusy(tokens[1])) {
+                                    AuthService.addToBlackList(nick, tokens[1]);
+                                } else {
+                                    out.writeUTF("Пользователь не авторизован");
+                                }
                             }
                             if (str.startsWith("/w")) {
                                 String[] keys = str.split(" ");
@@ -63,7 +67,7 @@ public class ClientHandler {
                                     out.writeUTF("Получатель не найден");
                                 }
                             } else {
-                                serv.broadcastMsg(nick + " : " + str);
+                                serv.broadcastMsg(nick,nick + " : " + str);
                             }
                         }
                     } catch (IOException e) {
