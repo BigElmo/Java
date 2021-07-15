@@ -48,9 +48,9 @@ public class MainServ {
         return false;
     }
 
-    public void privateMsg(String receiver, String msg) {
+    public void privateMsg(String from, String to, String msg) {
         for (ClientHandler o : clients) {
-            if (o.getNick().equals(receiver)) {
+            if (o.getNick().equals(from) || o.getNick().equals(to)) {
                 o.sendMsg(msg);
             }
         }

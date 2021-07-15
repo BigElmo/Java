@@ -54,7 +54,7 @@ public class ClientHandler {
                                 String[] keys = str.split(" ");
                                 if (serv.isNickBusy(keys[1])) {
                                     String newMsg = str.substring(keys[0].length() + keys[1].length() + 2);
-                                    serv.privateMsg(keys[1], nick + " : " + newMsg);
+                                    serv.privateMsg(nick, keys[1], nick + " : " + newMsg);
                                 } else {
                                     out.writeUTF("Получатель не найден");
                                 }
