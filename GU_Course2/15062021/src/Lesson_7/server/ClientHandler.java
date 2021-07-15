@@ -50,6 +50,10 @@ public class ClientHandler {
                                 out.writeUTF("/serverclosed");
                                 break;
                             }
+                            if (str.startsWith("/blacklist")) {
+                                String[] tokens = str.split(" ");
+
+                            }
                             if (str.startsWith("/w")) {
                                 String[] keys = str.split(" ");
                                 if (serv.isNickBusy(keys[1])) {

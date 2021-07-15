@@ -29,6 +29,14 @@ public class AuthService {
         return null;
     }
 
+    public static int getIDbyNickname(String nickname) {
+        return 0;
+    }
+
+    public static void addToBlackList(String nick1, String nick2) {
+
+    }
+
     public static void disconnect() {
         try {
             connection.close();
