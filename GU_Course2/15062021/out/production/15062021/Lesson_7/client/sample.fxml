@@ -12,13 +12,14 @@
     <HBox fx:id="upperPanel">
         <TextField HBox.hgrow="ALWAYS" promptText="Логин" fx:id="loginField"/>
         <PasswordField promptText="Пароль" fx:id="passwordField" onAction="#tryToAuth"/>
-        <Button text="Авторизоваться" onAction="#tryToAuth"/>
+        <Button minWidth="50" text="Войти" onAction="#tryToAuth"/>
     </HBox>
 
     <TextArea fx:id="textArea" editable="false" VBox.vgrow="ALWAYS"/>
     <HBox fx:id="bottomPanel" managed="false" visible="false">
         <TextField fx:id="textField" HBox.hgrow="ALWAYS"
                    promptText="Введите сообщение..." onAction="#sendMsg"/>
-        <Button fx:id="btn1" text="Send" onAction="#sendMsg"/>
+        <Button fx:id="btn1" text="Отправить" onAction="#sendMsg"/>
+        <Button fx:id="logout" text="Выйти" onAction="#logOut"/>
     </HBox>
 </VBox>

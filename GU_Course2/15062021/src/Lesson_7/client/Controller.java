@@ -1,5 +1,6 @@
 package Lesson_7.client;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
@@ -120,6 +121,14 @@ public class Controller {
             out.writeUTF("/auth " + loginField.getText() + " " + passwordField.getText());
             loginField.clear();
             passwordField.clear();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void logOut() {
+        try {
+            out.writeUTF("/end");
         } catch (IOException e) {
             e.printStackTrace();
         }
