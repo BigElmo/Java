@@ -45,7 +45,7 @@ public class AuthService {
     public static void addToBlackList(String nick1, String nick2) {
         String sql = String.format("INSERT INTO black_list (user_id, blocked_user_id) VALUES (%s, %s)", getIDbyNick(nick1), getIDbyNick(nick2));
         try {
-            ResultSet rs = stmt.executeQuery(sql);
+            stmt.executeUpdate(sql);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

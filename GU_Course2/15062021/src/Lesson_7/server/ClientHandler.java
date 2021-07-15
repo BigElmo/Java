@@ -46,25 +46,32 @@ public class ClientHandler {
                         while (true) {
                             String str = in.readUTF();
                             System.out.println("Client " + str);
-                            if (str.equals("/end")) {
-                                out.writeUTF("/serverclosed");
-                                break;
-                            }
-                            if (str.startsWith("/blacklist")) {
-                                String[] tokens = str.split(" ");
-                                if (serv.isNickBusy(tokens[1])) {
-                                    AuthService.addToBlackList(nick, tokens[1]);
-                                } else {
-                                    out.writeUTF("Пользователь не авторизован");
+                            if (str.startsWith("/")) {
+                                if (str.equals("/end")) {
+                                    out.writeUTF("/serverclosed");
+                                    break;
                                 }
-                            }
-                            if (str.startsWith("/w")) {
-                                String[] keys = str.split(" ");
-                                if (serv.isNickBusy(keys[1])) {
-                                    String newMsg = str.substring(keys[0].length() + keys[1].length() + 2);
-                                    serv.privateMsg(nick, keys[1], nick + " : " + newMsg);
-                                } else {
-                                    out.writeUTF("Получатель не найден");
+                                if (str.startsWith("/blacklist")) {
+                                    String[] tokens = str.split(" ");
+                                    if (tokens[1].equals(nick)) {
+                                        out.writeUTF("Нельзя добавить себя в чёрный список!");
+                                    } else if (serv.isNickBusy(tokens[1])) {
+                                        if (!AuthService.isInBlacklist(nick, tokens[1])) {
+                                            AuthService.addToBlackList(nick, tokens[1]);
+                                        }
+                                        out.writeUTF(tokens[1] + " занесён в чёрный список");
+                                    } else {
+                                        out.writeUTF(tokens[1] + " не авторизован");
+                                    }
+                                }
+                                if (str.startsWith("/w")) {
+                                    String[] keys = str.split(" ");
+                                    if (serv.isNickBusy(keys[1])) {
+                                        String newMsg = str.substring(keys[0].length() + keys[1].length() + 2);
+                                        serv.privateMsg(nick, keys[1], nick + " : " + newMsg);
+                                    } else {
+                                        out.writeUTF("Получатель не найден");
+                                    }
                                 }
                             } else {
                                 serv.broadcastMsg(nick,nick + " : " + str);
