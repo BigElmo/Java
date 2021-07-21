@@ -48,10 +48,12 @@ public class MainServ {
         return false;
     }
 
-    public void privateMsg(String receiver, String msg) {
+    public void privateMsg(String from, String to, String msg) {
         for (ClientHandler o : clients) {
-            if (o.getNick().equals(receiver)) {
-                o.sendMsg(msg);
+            if (o.getNick().equals(from) || o.getNick().equals(to)) {
+                if (!AuthService.isInBlacklist(o.getNick(), from)) {
+                    o.sendMsg(msg);
+                }
             }
         }
     }
@@ -64,8 +66,9 @@ public class MainServ {
         clients.remove(client);
     }
 
-    public void broadcastMsg(String msg) {
+    public void broadcastMsg(String from, String msg) {
         for (ClientHandler o : clients) {
+            if (!AuthService.isInBlacklist(o.getNick(), from))
             o.sendMsg(msg);
         }
     }
