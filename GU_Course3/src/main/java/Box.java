@@ -1,29 +1,37 @@
 import java.util.ArrayList;
 
-public class Box<T> {
+public class Box<T extends Fruit> {
 
     private ArrayList<T> items;
-    private int counter;
 
     public Box() {
         items = new ArrayList<>();
-        counter = 0;
     }
 
     public void addItem(T obj) {
         items.add(obj);
-        counter++;
     }
 
     public int getCount() {
-        return counter;
+        return items.size();
     }
 
-//    public double getWeight() {
-//        double boxWeight = 0;
-//        for (T item : items) {
-//            boxWeight += item.getWeight();
-//        }
-//        return boxWeight;
-//    }
+    public double getWeight() {
+        double boxWeight = 0;
+        for (T item : items) {
+            boxWeight += item.getWeight();
+        }
+        return boxWeight;
+    }
+
+    public boolean compare(Box<?> another) {
+        return Math.abs(this.getWeight() - another.getWeight()) < 0.001f;
+    }
+
+    public void addFromBox(Box<T> another) {
+        if (!another.items.isEmpty()) {
+            this.items.addAll(another.items);
+            another.items.clear();
+        }
+    }
 }
