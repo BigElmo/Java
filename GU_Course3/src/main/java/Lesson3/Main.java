@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("NiHao!");
         Random random = new Random();
+        long programStartTime = System.currentTimeMillis();
 
 //        Файл для 1-го задания
         byte[] random_barr_50 = new byte[50];
@@ -29,6 +30,20 @@ public class Main {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+//        Файл для третьего задания
+        String text = "Java — строго типизированный объектно-ориентированный язык программирования общего назначения, " +
+                "разработанный компанией Sun Microsystems (в последующем приобретённой компанией Oracle). " +
+                "Разработка ведётся сообществом, организованным через Java Community Process; " +
+                "язык и основные реализующие его технологии распространяются по лицензии GPL. " +
+                "Права на торговую марку принадлежат корпорации Oracle.";
+        try (BufferedWriter out = new BufferedWriter(new FileWriter("task3_file1.txt"))) {
+            for (int i = 0; i < 100000; i++) {
+                out.write(text + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 //        1. Прочитать файл (около 50 байт) в байтовый массив и вывести этот массив в консоль;
@@ -63,7 +78,21 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+//        3. Написать консольное приложение, которое умеет постранично читать текстовые файлы (размером > 10 mb).
+//        Вводим страницу (за страницу можно принять 1800 символов), программа выводит ее в консоль.
+//        Контролируем время выполнения: программа не должна загружаться дольше 10 секунд, а чтение – занимать свыше 5 секунд.
+        long task3StartTime = System.currentTimeMillis();
+        try (BufferedReader in = new BufferedReader(new FileReader("task3_file1.txt"))) {
+            String str;
+            while ((str = in.readLine()) != null) {
+                System.out.println(str);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        long programEndTime = System.currentTimeMillis();
+        System.out.println("Чтение из файла выполнено за: " + (programEndTime - task3StartTime) + "мс");
+        System.out.println("Программа выполнена за: " + (programEndTime - programStartTime) + "мс");
     }
-
-
 }
