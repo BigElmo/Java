@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class MainTest {
+public class MainClassTest {
 
     private MainClass mainClass;
 
@@ -42,5 +42,23 @@ public class MainTest {
         return out.stream();
     }
 
+    @ParameterizedTest
+    @MethodSource("dataFor1and4Array")
+    public void test1and4Array(int[] array, boolean result) {
+        Assertions.assertEquals(result, mainClass.has1and4Array(array));
+    }
+
+    public static Stream<Arguments> dataFor1and4Array() {
+        List<Arguments> out = new ArrayList<>();
+        out.add(Arguments.arguments(new int[] { 1, 4, 1, 4 }, true));
+        out.add(Arguments.arguments(new int[] { 4, 1, 4, 1 }, true));
+        out.add(Arguments.arguments(new int[] { 1, 1, 4, 4 }, true));
+        out.add(Arguments.arguments(new int[] { 4, 4, 1, 1 }, true));
+        out.add(Arguments.arguments(new int[] { 1, 1, 1, 4 }, true));
+        out.add(Arguments.arguments(new int[] { 1, 4, 4, 4 }, true));
+        out.add(Arguments.arguments(new int[] { 1, 2, 1, 4 }, false));
+        out.add(Arguments.arguments(new int[] { 1, 1, 1, 1 }, false));
+        return out.stream();
+    }
 
 }
