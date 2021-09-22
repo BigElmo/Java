@@ -11,20 +11,11 @@ public class MainClass {
             }
         }
         if (last4index == -1) {
-            result = new int[1];
-            try {
-                result[0] = sourceArray[last4index];
-            } catch (RuntimeException e) {
-                e.printStackTrace();
-            }
+            throw new RuntimeException();
         } else {
             result = new int[sourceArray.length - last4index - 1];
-            try {
-                for (int i = 0; i < result.length; i++) {
-                    result[i] = sourceArray[last4index + 1 + i];
-                }
-            } catch (RuntimeException e) {
-                e.printStackTrace();
+            for (int i = 0; i < result.length; i++) {
+                result[i] = sourceArray[last4index + 1 + i];
             }
         }
         return result;
