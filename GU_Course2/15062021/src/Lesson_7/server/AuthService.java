@@ -1,8 +1,12 @@
 package Lesson_7.server;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.*;
 
 public class AuthService {
+    private static final Logger LOGGER = LogManager.getLogger(AuthService.class);
     private static Connection connection;
     private static Statement stmt;
 
@@ -12,7 +16,8 @@ public class AuthService {
             connection = DriverManager.getConnection("jdbc:sqlite:main.db");
             stmt = connection.createStatement();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.debug(e.getMessage());
+//            e.printStackTrace();
         }
     }
 
@@ -24,7 +29,8 @@ public class AuthService {
                 return rs.getString(1);
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.debug(throwables.getMessage());
+//            throwables.printStackTrace();
         }
         return null;
     }
@@ -37,7 +43,8 @@ public class AuthService {
                 return rs.getInt(1);
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.debug(throwables.getMessage());
+//            throwables.printStackTrace();
         }
         return 0;
     }
@@ -47,7 +54,8 @@ public class AuthService {
         try {
             stmt.executeUpdate(sql);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.debug(throwables.getMessage());
+//            throwables.printStackTrace();
         }
     }
 
@@ -59,7 +67,8 @@ public class AuthService {
                 return true;
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.debug(throwables.getMessage());
+//            throwables.printStackTrace();
         }
         return false;
     }
@@ -68,7 +77,8 @@ public class AuthService {
         try {
             connection.close();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.debug(throwables.getMessage());
+//            throwables.printStackTrace();
         }
     }
 
