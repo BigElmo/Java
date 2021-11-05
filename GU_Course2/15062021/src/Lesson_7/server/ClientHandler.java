@@ -1,11 +1,15 @@
 package Lesson_7.server;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 public class ClientHandler {
+    private static final Logger LOGGER = LogManager.getLogger(ClientHandler.class);
     private MainServ serv;
     private Socket socket;
     private String nick;
@@ -27,6 +31,7 @@ public class ClientHandler {
                             String str = in.readUTF();
                             if (str.startsWith("/auth")) {
                                 String[] tokens = str.split(" ");
+                                LOGGER.info("Запрос авторизации от " + tokens[1]);
                                 String currentNick = AuthService.getNickByLoginAndPass(tokens[1], tokens[2]);
                                 if (currentNick != null) {
                                     if (!serv.isNickBusy(currentNick)) {
@@ -48,10 +53,12 @@ public class ClientHandler {
                             System.out.println("Client " + str);
                             if (str.startsWith("/")) {
                                 if (str.equals("/end")) {
+                                    LOGGER.info("Клиент отключился");
                                     out.writeUTF("/serverclosed");
                                     break;
                                 }
                                 if (str.startsWith("/blacklist")) {
+                                    LOGGER.info("Попытка добавить в чёрный список...");
                                     String[] tokens = str.split(" ");
                                     if (tokens[1].equals(nick)) {
                                         out.writeUTF("Нельзя добавить себя в чёрный список!");
@@ -65,6 +72,7 @@ public class ClientHandler {
                                     }
                                 }
                                 if (str.startsWith("/w")) {
+                                    LOGGER.info("Попытка отправить личное сообщение...");
                                     String[] keys = str.split(" ");
                                     if (serv.isNickBusy(keys[1])) {
                                         String newMsg = str.substring(keys[0].length() + keys[1].length() + 2);
@@ -78,22 +86,26 @@ public class ClientHandler {
                             }
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        LOGGER.debug(e.getMessage());
+//                        e.printStackTrace();
                     } finally {
                         try {
                             in.close();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            LOGGER.debug(e.getMessage());
+//                            e.printStackTrace();
                         }
                         try {
                             out.close();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            LOGGER.debug(e.getMessage());
+//                            e.printStackTrace();
                         }
                         try {
                             socket.close();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            LOGGER.debug(e.getMessage());
+//                            e.printStackTrace();
                         }
                         serv.unsubscribe(ClientHandler.this);
                     }
@@ -102,7 +114,8 @@ public class ClientHandler {
             }).start();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.debug(e.getMessage());
+//            e.printStackTrace();
         }
     }
 
@@ -110,7 +123,8 @@ public class ClientHandler {
         try {
             out.writeUTF(msg);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.debug(e.getMessage());
+//            e.printStackTrace();
         }
     }
 
